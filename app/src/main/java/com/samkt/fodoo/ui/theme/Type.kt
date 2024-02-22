@@ -10,12 +10,11 @@ import com.samkt.fodoo.R
 
 val neutrif =
     FontFamily(
-//        Font(R.font.neutrif_pro_light, FontWeight.Light),
-//        Font(R.font.neutrif_pro_regular, FontWeight.Normal),
-//        Font(R.font.neutrif_pro_medium, FontWeight.Medium),
-//        Font(R.font.neutrif_pro_semi_bold, FontWeight.SemiBold),
-//        Font(R.font.neutrif_pro_bold, FontWeight.Bold),
-        Font(R.font.fiesole_bold_italic, FontWeight.Bold),
+        Font(R.font.neutrif_pro_light, FontWeight.Light),
+        Font(R.font.neutrif_pro_regular, FontWeight.Normal),
+        Font(R.font.neutrif_pro_medium, FontWeight.Medium),
+        Font(R.font.neutrif_pro_semi_bold, FontWeight.SemiBold),
+        Font(R.font.neutrif_pro_bold, FontWeight.Bold),
     )
 
 // Set of Material typography styles to start with
