@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,13 +34,15 @@ class LoginScreenViewModel : ViewModel() {
             is LoginScreenEvents.OnEmailChange -> {
                 _loginScreenState.update { state ->
                     state.copy(
-                        email = event.value,
+                        email = event.value.lowercase(),
                     )
                 }
             }
+
             is LoginScreenEvents.OnLoginButtonClicked -> {
                 loginUser()
             }
+
             is LoginScreenEvents.OnPasswordChange -> {
                 _loginScreenState.update { state ->
                     state.copy(
@@ -47,6 +50,7 @@ class LoginScreenViewModel : ViewModel() {
                     )
                 }
             }
+
             is LoginScreenEvents.OnPasswordEyeToggle -> {
                 _loginScreenState.update { state ->
                     state.copy(
@@ -75,12 +79,13 @@ class LoginScreenViewModel : ViewModel() {
                 )
             }
 
-            authentication.loginUser(email, password).onEach { result ->
+            authentication.loginUser(email.trim(), password.trim()).onEach { result ->
                 when (result) {
                     is Result.Success -> {
                         sendUiEvent(UiEvents.ShowSnackBar("Log In Successful!!"))
                         sendUiEvent(UiEvents.Navigate(NavigationScreens.HomeScreen.route))
                     }
+
                     is Result.Error -> {
                         _loginScreenState.update {
                             it.copy(
@@ -90,7 +95,7 @@ class LoginScreenViewModel : ViewModel() {
                         sendUiEvent(UiEvents.ShowSnackBar(result.message ?: "Sign in failed!!"))
                     }
                 }
-            }
+            }.launchIn(viewModelScope)
         }
     }
 

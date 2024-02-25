@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.samkt.fodoo.screens.home.HomeScreen
+import com.samkt.fodoo.screens.login.LoginScreen
 import com.samkt.fodoo.screens.onBoarding.OnBoardingScreen
 import com.samkt.fodoo.screens.signUp.SignUpScreen
 
@@ -23,11 +24,16 @@ fun App() {
             )
         }
         navigation(
-            startDestination = NavigationScreens.SignUpScreen.route,
+            startDestination = NavigationScreens.LoginScreen.route,
             route = NavigationScreens.Authentication.route,
         ) {
             composable(NavigationScreens.SignUpScreen.route) {
                 SignUpScreen(
+                    navController = navController,
+                )
+            }
+            composable(NavigationScreens.LoginScreen.route) {
+                LoginScreen(
                     navController = navController,
                 )
             }

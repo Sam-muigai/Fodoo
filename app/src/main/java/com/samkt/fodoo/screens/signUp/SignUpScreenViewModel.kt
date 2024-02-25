@@ -50,7 +50,7 @@ class SignUpScreenViewModel : ViewModel() {
             is SignUpScreenEvents.OnEmailChange -> {
                 _signUpScreenState.update { state ->
                     state.copy(
-                        email = event.input,
+                        email = event.input.lowercase(),
                     )
                 }
             }
@@ -102,12 +102,13 @@ class SignUpScreenViewModel : ViewModel() {
                 )
             }
 
-            authentication.signUpUser(email = email, password = password).onEach { result ->
+            authentication.signUpUser(email.trim(), password.trim()).onEach { result ->
                 when (result) {
                     is Result.Success -> {
                         sendUiEvent(UiEvents.ShowSnackBar("Sign Up Successful!!"))
                         sendUiEvent(UiEvents.Navigate(NavigationScreens.HomeScreen.route))
                     }
+
                     is Result.Error -> {
                         _signUpScreenState.update {
                             it.copy(

@@ -9,5 +9,5 @@ sealed class NavigationScreens(val route: String) {
 
     data object SignUpScreen : NavigationScreens("sign_up")
 
-    data object LoginScreen : NavigationScreens("sign_up")
+    data object LoginScreen : NavigationScreens("login")
 }
