@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -210,30 +211,37 @@ fun SignUpScreenContent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                Button(
-                    onClick = {
-                        onEvent(SignUpScreenEvents.OnSignUpClicked)
-                    },
-                    contentPadding =
-                        PaddingValues(
-                            start = 32.dp,
-                            top = 16.dp,
-                            end = 32.dp,
-                            bottom = 16.dp,
-                        ),
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFF4C4C),
-                        ),
-                ) {
-                    Text(
-                        text = "Sign Up",
-                        style =
-                            MaterialTheme.typography.bodySmall
-                                .copy(
-                                    fontWeight = FontWeight.Bold,
-                                ),
+                if (signUpScreenState.isSignUpLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(40.dp),
+                        color = Color(0xFFFF4C4C),
                     )
+                } else {
+                    Button(
+                        onClick = {
+                            onEvent(SignUpScreenEvents.OnSignUpClicked)
+                        },
+                        contentPadding =
+                            PaddingValues(
+                                start = 32.dp,
+                                top = 16.dp,
+                                end = 32.dp,
+                                bottom = 16.dp,
+                            ),
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFFF4C4C),
+                            ),
+                    ) {
+                        Text(
+                            text = "Sign Up",
+                            style =
+                                MaterialTheme.typography.bodySmall
+                                    .copy(
+                                        fontWeight = FontWeight.Bold,
+                                    ),
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))

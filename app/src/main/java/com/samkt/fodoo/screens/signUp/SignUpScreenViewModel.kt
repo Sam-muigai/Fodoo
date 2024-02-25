@@ -2,11 +2,17 @@ package com.samkt.fodoo.screens.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.samkt.fodoo.data.auth.Authentication
+import com.samkt.fodoo.data.auth.Result
+import com.samkt.fodoo.navigation.NavigationScreens
 import com.samkt.fodoo.utils.UiEvents
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -16,6 +22,12 @@ class SignUpScreenViewModel : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvents>()
     val uiEvents = _uiEvent.asSharedFlow()
+
+    private val authentication = Authentication()
+
+    init {
+        authentication.setFirebaseAuth(FirebaseAuth.getInstance())
+    }
 
     fun onEvent(event: SignUpScreenEvents) {
         when (event) {
@@ -83,6 +95,29 @@ class SignUpScreenViewModel : ViewModel() {
                 sendUiEvent(UiEvents.ShowSnackBar("Password and confirm password do not match!!"))
                 return
             }
+
+            _signUpScreenState.update {
+                it.copy(
+                    isSignUpLoading = true,
+                )
+            }
+
+            authentication.signUpUser(email = email, password = password).onEach { result ->
+                when (result) {
+                    is Result.Success -> {
+                        sendUiEvent(UiEvents.ShowSnackBar("Sign Up Successful!!"))
+                        sendUiEvent(UiEvents.Navigate(NavigationScreens.HomeScreen.route))
+                    }
+                    is Result.Error -> {
+                        _signUpScreenState.update {
+                            it.copy(
+                                isSignUpLoading = false,
+                            )
+                        }
+                        sendUiEvent(UiEvents.ShowSnackBar(result.message ?: "Sign up failed!!"))
+                    }
+                }
+            }.launchIn(viewModelScope)
         }
     }
 
@@ -113,4 +148,5 @@ data class SignUpScreenState(
     val confirmPassword: String = "",
     val confirmPasswordVisible: Boolean = false,
     val passwordVisible: Boolean = false,
+    val isSignUpLoading: Boolean = false,
 )

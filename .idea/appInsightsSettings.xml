@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.samkt.fodoo" />
+                  <option name="mobileSdkAppId" value="1:461114271663:android:149ff9acbecf29e194715a" />
+                  <option name="projectId" value="fodoo-4bab5" />
+                  <option name="projectNumber" value="461114271663" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

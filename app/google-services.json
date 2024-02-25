@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "461114271663",
+    "project_id": "fodoo-4bab5",
+    "storage_bucket": "fodoo-4bab5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461114271663:android:149ff9acbecf29e194715a",
+        "android_client_info": {
+          "package_name": "com.samkt.fodoo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwIjUeIJfO8WA_LXEJdTyxT95DgXbwzHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
