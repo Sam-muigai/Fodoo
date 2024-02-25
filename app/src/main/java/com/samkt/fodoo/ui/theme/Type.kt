@@ -17,7 +17,6 @@ val neutrif =
         Font(R.font.neutrif_pro_bold, FontWeight.Bold),
     )
 
-// Set of Material typography styles to start with
 val Typography =
     Typography(
         titleLarge =
